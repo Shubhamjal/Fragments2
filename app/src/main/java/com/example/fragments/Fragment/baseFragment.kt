@@ -6,7 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import com.example.fragments.MainActivity
 import com.example.fragments.R
+import com.example.fragments.databinding.ActivityMainBinding
+import com.example.fragments.databinding.FragmentBaseBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -18,17 +22,17 @@ private const val ARG_PARAM2 = "param2"
  * Use the [baseFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class baseFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class baseFragment : Fragment(), InteractionInterface {
+   lateinit var binding: FragmentBaseBinding
+   lateinit var mainActivity: MainActivity  //declaring base activity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+
         }
+        mainActivity =activity as MainActivity
+        mainActivity.interactionInterface=this
     }
 
     override fun onCreateView(
@@ -37,12 +41,19 @@ class baseFragment : Fragment() {
     ): View? {
         Toast.makeText(requireContext(),"OnCreateView", Toast.LENGTH_SHORT).show()//toast created
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_base, container, false)
+        binding= FragmentBaseBinding.inflate(layoutInflater)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Toast.makeText(requireContext(),"OnViewCreated",Toast.LENGTH_SHORT).show()
+
+        binding.button.setOnClickListener{
+            mainActivity.changeText()
+        }
+
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -106,7 +117,9 @@ class baseFragment : Fragment() {
             }
     }
 
-
+    override fun changeColor() {
+       binding.button.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.black))
+    }
 
 
 }
