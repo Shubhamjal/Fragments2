@@ -42,7 +42,6 @@ class baseFragment : Fragment(), InteractionInterface {
         Toast.makeText(requireContext(),"OnCreateView", Toast.LENGTH_SHORT).show()//toast created
         // Inflate the layout for this fragment
         binding= FragmentBaseBinding.inflate(layoutInflater)
-
         return binding.root
     }
 
@@ -50,7 +49,7 @@ class baseFragment : Fragment(), InteractionInterface {
         super.onViewCreated(view, savedInstanceState)
         Toast.makeText(requireContext(),"OnViewCreated",Toast.LENGTH_SHORT).show()
 
-        binding.button.setOnClickListener{
+        binding.ChangeColorbtn.setOnClickListener{
             mainActivity.changeText()
         }
 
@@ -118,7 +117,7 @@ class baseFragment : Fragment(), InteractionInterface {
     }
 
     override fun changeColor() {
-       binding.button.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.black))
+       binding.ChangeColorbtn.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.black))
     }
 
 
